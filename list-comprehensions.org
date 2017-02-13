@@ -43,9 +43,9 @@
     #+end_src
     
     #+RESULTS:
-    : 
-    : ... ... >>> ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y']
-    
+=
+... ... >>> ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y']
+=    
 ** That's a lot of code, if only it could be simpler!
    
    But it can be!
@@ -66,6 +66,8 @@
    #+begin_src python
    [expression_of(a) for a in a_list]
    #+end_src
+
+   #+RESULTS:
 
    - Use of a list comprehension as a mapping with a filter
    #+begin_src python
@@ -356,6 +358,8 @@ C-c C-c this to stop confirmation on python
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+end_src
 
+#+RESULTS:
+
 From orgmode http://orgmode.org/manual/Code-evaluation-security.html
 Org-Mode Manual
 
@@ -368,5 +372,21 @@ Org-Mode Manual
  '((python . t)))
 #+end_src
 
-From Orgmode http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html
+#+RESULTS:
+
+
+From Orgmode
+http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html
+
+** Enable python syntax highlighting in emacs
+
+From
+http://stackoverflow.com/questions/10642888/syntax-highlighting-within-begin-src-block-in-emacs-orgmode-not-working
+bzg http://stackoverflow.com/users/1037678/bzg
+
+#+begin_src elisp
+(setq org-src-fontify-natively t)
+#+end_src
+
+#+RESULTS:
 
