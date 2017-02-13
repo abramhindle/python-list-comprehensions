@@ -192,6 +192,157 @@
    : ... ['00', '02', '11', '20', '22']
 
 * List Comprehension Recipes
+** Make everything a string!   
+   #+begin_src python :session
+   import random
+   def trouble():
+       if random.choice([True,False]):
+           return random.choice(["a","b","c","d","e","f"])
+       return random.choice(range(1,10))
+   
+   trouble()
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : ... ... ... ... >>> 'b'
+
+   Let's get 10 troubles
+
+   #+begin_src python :session
+   l = [trouble() for i in range(0,10)]
+   l
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : ['f', 1, 8, 2, 3, 4, 8, 'b', 7, 8]
+
+   Now let's concatenate them!
+   
+   #+begin_src python :session
+   "---".join(l)
+   #+end_src
+
+   #+RESULTS:
+   : Traceback (most recent call last):
+   :   File "<stdin>", line 1, in <module>
+   : TypeError: sequence item 1: expected string, int found
+
+   Oh they aren't all strings :( So let's make sure they are all strings
+
+   #+begin_src python :session
+   "---".join([str(x) for x in l])
+   #+end_src
+
+   #+RESULTS:
+   : 'f---1---8---2---3---4---8---b---7---8'
+
+   
+   
+** Keep only strings!
+   #+begin_src python :session
+   import random
+   def more_trouble():
+       if random.choice([True,False]):
+           return random.choice(["a","b","c","d","e","f"])
+       return None
+   
+   more_trouble()
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : ... ... ... ... >>> 'b'
+
+   Let's get 10 troubles
+
+   #+begin_src python :session
+   ml = [more_trouble() for i in range(0,10)]
+   ml
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : ['b', None, None, None, 'f', 'b', None, None, 'f', 'a']
+
+   Now let's concatenate them!
+   
+   #+begin_src python :session
+   "---".join(ml)
+   #+end_src
+
+   #+RESULTS:
+   : Traceback (most recent call last):
+   :   File "<stdin>", line 1, in <module>
+   : TypeError: sequence item 1: expected string, NoneType found
+
+   Oh I only want to print strings. By Sven Marnach (https://stackoverflow.com/users/279627/sven-marnach) https://stackoverflow.com/questions/4843173/how-to-check-if-type-of-a-variable-is-string
+
+   #+begin_src python :session
+   "---".join([str(x) for x in ml if isinstance(x,str)])
+   #+end_src
+
+   #+RESULTS:
+   : 'b---f---b---f---a'
+
+   
+   
+** Filter out words I don't know!
+   
+   Let's filter out words we don't know from a string!
+
+   #+begin_src python :session
+   words_known = set("a fat lazy dog ate a mouse a fox and a cat".split(" "))
+   words_known
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : set(['a', 'and', 'lazy', 'ate', 'fox', 'dog', 'fat', 'cat', 'mouse'])
+
+   #+begin_src python :session
+   sentence = "sometimes i spend some time with cat and dog unless they are being lazy"
+   [x for x in sentence.split(" ") if x in words_known]
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : ['cat', 'and', 'dog', 'lazy']
+
+** Make a 2 dimensional array   
+
+   #+begin_src python :session
+   blocks = [["X" for x in range(0,10)] for y in range(0,10)]
+
+   blocks
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : >>> [['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']]
+
+   Now make a string out of it
+   #+begin_src python :session
+   block_str = "\n".join(["".join(x) for x in blocks])
+   print(block_str)
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+   XXXXXXXXXX
+#+end_example
+
    
 
 
