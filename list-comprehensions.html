@@ -3,30 +3,23 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="language, e.g. ‘en’ (org-export-default-language)" xml:lang="language, e.g. ‘en’ (org-export-default-language)">
 <head>
-<!-- 2017-02-13 Mon 15:54 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>List Comprehensions</title>
+<!-- 2017-02-13 Mon 16:59 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Abram Hindle" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
+  .title  { text-align: center; }
   .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
+  .done   { color: green; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -65,14 +58,15 @@
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara { display: inline; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
@@ -148,41 +142,42 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline10">1. List Comprehensions</a>
+<li><a href="#sec-1">1. List Comprehensions</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Let's get a list of letters</a></li>
-<li><a href="#orgheadline2">1.2. Those aren't letters so how do we get letters back from them?</a></li>
-<li><a href="#orgheadline3">1.3. Those aren't letters so how do we get letters back from them?</a></li>
-<li><a href="#orgheadline4">1.4. That's a lot of code, if only it could be simpler!</a></li>
-<li><a href="#orgheadline5">1.5. List Comprehensions</a></li>
-<li><a href="#orgheadline6">1.6. List Comprehensions (Mapping)</a></li>
-<li><a href="#orgheadline7">1.7. List Comprehensions (Mapping and Filtering)</a></li>
-<li><a href="#orgheadline8">1.8. List Comprehensions Chaining</a></li>
-<li><a href="#orgheadline9">1.9. List Comprehensions Nesting</a></li>
+<li><a href="#sec-1-1">1.1. Let's get a list of letters</a></li>
+<li><a href="#sec-1-2">1.2. Those aren't letters so how do we get letters back from them?</a></li>
+<li><a href="#sec-1-3">1.3. Those aren't letters so how do we get letters back from them?</a></li>
+<li><a href="#sec-1-4">1.4. That's a lot of code, if only it could be simpler!</a></li>
+<li><a href="#sec-1-5">1.5. List Comprehensions</a></li>
+<li><a href="#sec-1-6">1.6. List Comprehensions (Mapping)</a></li>
+<li><a href="#sec-1-7">1.7. List Comprehensions (Mapping and Filtering)</a></li>
+<li><a href="#sec-1-8">1.8. List Comprehensions Chaining</a></li>
+<li><a href="#sec-1-9">1.9. List Comprehensions Nesting</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline15">2. List Comprehension Recipes</a>
+<li><a href="#sec-2">2. List Comprehension Recipes</a>
 <ul>
-<li><a href="#orgheadline11">2.1. Make everything a string!</a></li>
-<li><a href="#orgheadline12">2.2. Keep only strings!</a></li>
-<li><a href="#orgheadline13">2.3. Filter out words I don't know!</a></li>
-<li><a href="#orgheadline14">2.4. Make a 2 dimensional array</a></li>
+<li><a href="#sec-2-1">2.1. Make everything a string!</a></li>
+<li><a href="#sec-2-2">2.2. Keep only strings!</a></li>
+<li><a href="#sec-2-3">2.3. Filter out words I don't know!</a></li>
+<li><a href="#sec-2-4">2.4. Make a 2 dimensional array</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">3. Notes</a>
+<li><a href="#sec-3">3. Notes</a>
 <ul>
-<li><a href="#orgheadline16">3.1. If you're really desperate with babel try this:</a></li>
+<li><a href="#sec-3-1">3.1. If you're really desperate with babel try this:</a></li>
+<li><a href="#sec-3-2">3.2. Enable python syntax highlighting in emacs</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">1</span> List Comprehensions</h2>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> List Comprehensions</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Let's get a list of letters</h3>
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Let's get a list of letters</h3>
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 
@@ -198,8 +193,8 @@ asciis
 </div>
 
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Those aren't letters so how do we get letters back from them?</h3>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Those aren't letters so how do we get letters back from them?</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 
@@ -214,8 +209,8 @@ asciis
 </div>
 
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Those aren't letters so how do we get letters back from them?</h3>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Those aren't letters so how do we get letters back from them?</h3>
 <div class="outline-text-3" id="text-1-3">
 <div class="org-src-container">
 
@@ -233,8 +228,10 @@ l
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">1.4</span> That's a lot of code, if only it could be simpler!</h3>
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> That's a lot of code, if only it could be simpler!</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 But it can be!
@@ -254,11 +251,12 @@ l2
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">1.5</span> List Comprehensions</h3>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> List Comprehensions</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
-<li>Use of a list comprehension as a mapping</li>
+<li>Use of a list comprehension as a mapping
+</li>
 </ul>
 <div class="org-src-container">
 
@@ -267,7 +265,8 @@ l2
 </div>
 
 <ul class="org-ul">
-<li>Use of a list comprehension as a mapping with a filter</li>
+<li>Use of a list comprehension as a mapping with a filter
+</li>
 </ul>
 <div class="org-src-container">
 
@@ -278,11 +277,12 @@ l2
 </div>
 
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">1.6</span> List Comprehensions (Mapping)</h3>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> List Comprehensions (Mapping)</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
-<li>Let's try it out</li>
+<li>Let's try it out
+</li>
 </ul>
 <div class="org-src-container">
 
@@ -298,7 +298,8 @@ l
 </pre>
 
 <ul class="org-ul">
-<li>or directly</li>
+<li>or directly 
+</li>
 </ul>
 
 
@@ -318,11 +319,12 @@ l
 
 
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">1.7</span> List Comprehensions (Mapping and Filtering)</h3>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> List Comprehensions (Mapping and Filtering)</h3>
 <div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
-<li>Let's try it out</li>
+<li>Let's try it out
+</li>
 </ul>
 <div class="org-src-container">
 
@@ -339,7 +341,8 @@ l
 </pre>
 
 <ul class="org-ul">
-<li>or directly</li>
+<li>or directly 
+</li>
 </ul>
 
 <div class="org-src-container">
@@ -356,8 +359,8 @@ l
 </div>
 
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">1.8</span> List Comprehensions Chaining</h3>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> List Comprehensions Chaining</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 You can chain the for calls. The precedence is confusing.
@@ -404,8 +407,8 @@ But the order of filtering can be confusing
 </div>
 
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">1.9</span> List Comprehensions Nesting</h3>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> List Comprehensions Nesting</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 You can nest list comprehensions. This enables multiple levels of
@@ -457,11 +460,11 @@ or we can avoid indexing the tuple
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-2">
-<h2 id="orgheadline15"><span class="section-number-2">2</span> List Comprehension Recipes</h2>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> List Comprehension Recipes</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">2.1</span> Make everything a string!</h3>
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Make everything a string!</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 
@@ -476,7 +479,7 @@ trouble()
 </div>
 
 <pre class="example">
-... ... ... ... &gt;&gt;&gt; 'f'
+... ... ... ... &gt;&gt;&gt; 5
 </pre>
 
 <p>
@@ -491,7 +494,7 @@ l
 </div>
 
 <pre class="example">
-['e', 2, 5, 2, 3, 'd', 1, 2, 'c', 3]
+[6, 'f', 'a', 7, 5, 'c', 'f', 'e', 7, 9]
 </pre>
 
 <p>
@@ -507,7 +510,7 @@ Now let's concatenate them!
 <pre class="example">
 Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-TypeError: sequence item 1: expected string, int found
+TypeError: sequence item 0: expected string, int found
 </pre>
 
 <p>
@@ -521,15 +524,15 @@ Oh they aren't all strings :( So let's make sure they are all strings
 </div>
 
 <pre class="example">
-'e---2---5---2---3---d---1---2---c---3'
+'6---f---a---7---5---c---f---e---7---9'
 </pre>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">2.2</span> Keep only strings!</h3>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Keep only strings!</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
@@ -559,7 +562,7 @@ ml
 </div>
 
 <pre class="example">
-['b', 'e', 'f', 'c', 'd', None, None, None, 'a', None]
+[None, 'e', None, None, None, 'b', None, None, None, None]
 </pre>
 
 <p>
@@ -575,7 +578,7 @@ Now let's concatenate them!
 <pre class="example">
 Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-TypeError: sequence item 5: expected string, NoneType found
+TypeError: sequence item 0: expected string, NoneType found
 </pre>
 
 <p>
@@ -589,15 +592,15 @@ Oh I only want to print strings. By Sven Marnach (<a href="https://stackoverflow
 </div>
 
 <pre class="example">
-'b---e---f---c---d---a'
+'e---b'
 </pre>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13"><span class="section-number-3">2.3</span> Filter out words I don't know!</h3>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Filter out words I don't know!</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Let's filter out words we don't know from a string!
@@ -627,8 +630,8 @@ set(['a', 'and', 'lazy', 'ate', 'fox', 'dog', 'fat', 'cat', 'mouse'])
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">2.4</span> Make a 2 dimensional array</h3>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Make a 2 dimensional array</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 
@@ -671,8 +674,8 @@ XXXXXXXXXX
 
 
 
-<div id="outline-container-orgheadline17" class="outline-2">
-<h2 id="orgheadline17"><span class="section-number-2">3</span> Notes</h2>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Notes</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 C-c C-c this to stop confirmation on python
@@ -693,8 +696,8 @@ Org-Mode Manual
 </div>
 
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">3.1</span> If you're really desperate with babel try this:</h3>
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> If you're really desperate with babel try this:</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 
@@ -705,8 +708,26 @@ Org-Mode Manual
 </div>
 
 <p>
-From Orgmode <a href="http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html">http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html</a>
+From Orgmode
+<a href="http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html">http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html</a>
 </p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Enable python syntax highlighting in emacs</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+From
+<a href="http://stackoverflow.com/questions/10642888/syntax-highlighting-within-begin-src-block-in-emacs-orgmode-not-working">http://stackoverflow.com/questions/10642888/syntax-highlighting-within-begin-src-block-in-emacs-orgmode-not-working</a>
+bzg <a href="http://stackoverflow.com/users/1037678/bzg">http://stackoverflow.com/users/1037678/bzg</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp">(setq org-src-fontify-natively t)
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -714,7 +735,8 @@ From Orgmode <a href="http://orgmode.org/worg/org-contrib/babel/languages/ob-doc
 <div id="postamble" class="status">
 <p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">&lt;2017-02-13 Mon&gt;</span></span></p>
 <p class="author">Author: Abram Hindle</p>
-<p class="date">Created: 2017-02-13 Mon 15:54</p>
+<p class="date">Created: 2017-02-13 Mon 16:59</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
